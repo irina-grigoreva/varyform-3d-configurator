@@ -1,0 +1,19 @@
+{
+  "name": "@varyform/domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./dxf": "./src/export/dxf/buildDxf.ts"
+  },
+  "scripts": {
+    "test": "tsx --test ./test/*.test.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  },
+  "dependencies": {
+    "@tarikjabiri/dxf": "^2.9.0"
+  }
+}

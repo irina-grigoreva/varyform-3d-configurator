@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build output
+.nuxt/
+.output/
+dist/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# Environment and secrets (keep the documented template)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs and WordPress debug output
+*.log
+npm-debug.log*
+debug.log
+wc-logs/
+
+# Local exports, downloads and database dumps
+*.pdf
+*.dxf
+*.sql.gz
+*.dump
+*.bak
+/downloads/
+/exports/
+/screenshots/
+
+# Editor, OS and assistant session files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+.claude/
+.copilot/
+.playwright-mcp/

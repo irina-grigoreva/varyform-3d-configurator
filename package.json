@@ -1,0 +1,28 @@
+{
+  "name": "varyform-3d-configurator",
+  "description": "VARYFORM — Parametric 3D Product Configurator. Configure. Visualize. Manufacture.",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": "^22.22.2 || >=24.15.0"
+  },
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "packages/domain",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n web,api \"npm run dev --workspace @varyform/web\" \"npm run dev --workspace @varyform/api\"",
+    "dev:api": "npm run dev --workspace @varyform/api",
+    "db": "npm run db --workspace @varyform/api",
+    "build": "npm run build --workspace @varyform/api && npm run build --workspace @varyform/web",
+    "typecheck": "npm run typecheck --workspace @varyform/api && npm run typecheck --workspace @varyform/web",
+    "lint": "npm run lint --workspace @varyform/api && npm run lint --workspace @varyform/web",
+    "test": "npm run test --workspace @varyform/domain && npm run test --workspace @varyform/api",
+    "test:wordpress": "php wordpress/varyform-woocommerce/tests/run.php"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

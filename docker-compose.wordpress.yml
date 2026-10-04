@@ -1,0 +1,42 @@
+services:
+  wordpress-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress-local-only
+      MYSQL_ROOT_PASSWORD: root-local-only
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - varyform-wordpress-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-proot-local-only"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  wordpress:
+    image: ${WORDPRESS_IMAGE:-wordpress:php8.3-apache}
+    depends_on:
+      wordpress-db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: wordpress-db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress-local-only
+      WORDPRESS_DEBUG: "1"
+      WORDPRESS_CONFIG_EXTRA: |
+        if (!defined('WP_DEBUG_LOG')) { define('WP_DEBUG_LOG', true); }
+        if (!defined('WP_ENVIRONMENT_TYPE')) { define('WP_ENVIRONMENT_TYPE', 'local'); }
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - varyform-wordpress:/var/www/html
+      - ./wordpress/varyform-woocommerce:/var/www/html/wp-content/plugins/varyform-woocommerce
+
+volumes:
+  varyform-wordpress-db:
+  varyform-wordpress:
