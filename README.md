@@ -1,6 +1,8 @@
 # VARYFORM
 
-**Parametric 3D Product Configurator** — Configure. Visualize. Manufacture.
+**Parametric 3D Product Configurator** — configure, visualize and order made-to-measure furniture.
+
+**[▶ Live demo](https://varyform-3d-configurator-ar9y.vercel.app/)** — 3D configurator, technical drawings, BOM, pricing and PDF/DXF export run fully in the browser. Saving/sharing projects and WooCommerce checkout need the API and WordPress backends ([run locally](#local-development)).
 
 ![VARYFORM configurator](docs/images/01-configurator.png)
 
@@ -8,17 +10,17 @@ VARYFORM is a parametric 3D product configurator for made-to-order
 manufacturing and e-commerce. A customer sets dimensions and options to the
 millimetre and sees the product rebuilt instantly as procedural Three.js
 geometry. The same configuration produces technical drawings, a bill of
-materials, a live price, a PDF project sheet and a millimetre-accurate DXF
-file, and can be ordered through WooCommerce.
+materials, a live price, a PDF project sheet and a DXF file drawn at real
+millimetre scale, and can be ordered through WooCommerce.
 
 The reference product is a modular shelving system: dimensions, sections,
 shelves, board thickness, material, back panel and legs.
 
 **What makes it technically interesting:** one framework-independent
 TypeScript domain model generates the 3D geometry, drawings, BOM, pricing and
-both exports. The same code runs in the browser and in the API, so every view
-is consistent by construction and the price cannot be tampered with from the
-client.
+both exports, and runs in both the browser and the API — every view is
+consistent by construction, and the server recalculates the price so it
+cannot be tampered with from the client.
 
 **Stack:** Nuxt 4 · Vue 3 · TypeScript · Three.js · Fastify · PostgreSQL ·
 Drizzle · WordPress · WooCommerce
@@ -33,18 +35,18 @@ plugin designed and built by me.
 - **CAD-like technical drawings** — front and side orthographic SVG elevations with dimension lines, zoom and fit-to-view.
 - **Bill of materials** — grouped parts with quantities, cut sizes and materials.
 - **PDF project sheet** — cover with 3D render and specification, A3 vector elevations, BOM page.
-- **DXF export** — front and side elevations in millimetres (`$INSUNITS = mm`) on `OUTLINE / PANELS / SHELVES / DIMENSIONS / TEXT` layers.
+- **DXF export** — front and side elevations at 1:1 scale in millimetres (`$INSUNITS = mm`) on `OUTLINE / PANELS / SHELVES / DIMENSIONS / TEXT` layers, ready to open in CAD as a design preview.
 - **Saved & shared projects** — public read-only links (`/project/VRF-…`) and a private edit token for the creator.
 - **WooCommerce integration** — Add to cart from the configurator for guests and logged-in customers, server-verified price, classic checkout re-verification, order snapshots in admin and My Account.
 
 ## Engineering Highlights
 
-- **Shared domain model.** `packages/domain` is pure TypeScript with no framework dependencies; the browser and the Fastify API import the same validation, parts, BOM, price, drawing geometry and export data functions.
+- **Shared domain model.** `packages/domain` has no framework dependencies; the browser and the API import the same validation, parts, BOM, price and export functions.
 - **Procedural geometry.** `calculateParts()` places every panel, shelf, divider, back panel and leg in millimetres; Three.js converts to metres at one boundary and the drawings project the same parts into 2D.
 - **Single source of truth.** One `Configuration` object in Pinia drives every view; switching 3D/Drawing never mutates state and preserves the 3D camera.
-- **Server-authoritative commerce pricing.** WooCommerce receives only a project ID, fetches price/BOM from the API, ignores tampered browser fields and re-verifies every project before classic checkout (fail-closed, one clear message per configuration).
+- **Server-authoritative pricing.** WooCommerce receives only a project ID and re-verifies it with the API before cart and classic checkout (fail-closed).
 - **Immutable order snapshots.** Configuration, dimensions, BOM and price are copied to the order line; later edits to a shared project never change historical orders.
-- **Millimetre-accurate DXF.** Real-size geometry independent of screen scaling, validated with an independent DXF parser (ezdxf audit: 0 errors) for small, medium and maximum configurations.
+- **Real-scale DXF.** Geometry is written in millimetres independent of screen scaling and validated with an independent parser (ezdxf audit: 0 errors) for small, medium and maximum configurations.
 - **Performance-aware loading.** Three.js, PDF and DXF code load on demand; one WebGL context is reused across mode switches and temporary snapshot contexts are released.
 - **Tested end to end.** 76 automated tests plus real-browser E2E of the full WooCommerce flow.
 
@@ -56,7 +58,7 @@ Bundle size for the main route:
 | Initial JS after optimization  | **241 kB / 89 kB**            |
 | Three.js viewer                | 506 kB / 127 kB — lazy-loaded |
 | DXF export                     | 90 kB / 22 kB — lazy-loaded   |
-| PDF export (jsPDF)             | lazy-loaded on demand         |
+| PDF export (jsPDF)             | 399 kB / 128 kB — lazy-loaded |
 
 ## Architecture
 
@@ -89,16 +91,16 @@ Engineering details: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Screenshots
 
-Final screenshots will be stored in [`docs/images/`](./docs/images/). Planned images, all using the same demo project — _Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)_:
+Screenshots live in [`docs/images/`](./docs/images/) (PNG), all using the same demo project — _Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)_:
 
 | File                        | Shows                                            |
 | --------------------------- | ------------------------------------------------ |
 | `01-configurator.png`       | Main 3D configurator (desktop)                   |
-| `02-technical-drawing.webp` | Front elevation with dimensions                  |
-| `03-bom-pricing.webp`       | Parts list and estimated total                   |
-| `04-project-pdf.webp`       | PDF project sheet (cover + elevation)            |
-| `05-woocommerce-cart.webp`  | WooCommerce cart with the verified configuration |
-| `06-order-snapshot.webp`    | WooCommerce admin order snapshot with BOM        |
+| `02-technical-drawing.png`  | Front elevation with dimensions                  |
+| `03-bom-pricing.png`        | Parts list and estimated total                   |
+| `04-project-pdf.png`        | PDF project sheet (cover + elevation)            |
+| `05-woocommerce-cart.png`   | WooCommerce cart with the verified configuration |
+| `06-order-snapshot.png`     | WooCommerce admin order snapshot with BOM        |
 
 ## Local Development
 
@@ -151,13 +153,12 @@ See [SECURITY.md](./SECURITY.md) — server-side pricing, hashed edit tokens, sa
 - **No user accounts** in the configurator — editing uses a browser-held edit token without rotation/revocation.
 - **Same-site hosting** — Nuxt and WordPress must be hosted on the same site (same registrable domain) so the cart session cookie is sent.
 - **Local email delivery** requires an SMTP server or mail catcher.
-- **Dependency advisories** remain in build/dev tooling (`node-forge` via Nuxt CLI, `braces`, `esbuild`) with no non-breaking fix; none is reachable from the running application.
-- **Exports are previews**, not manufacturing release documents (2D elevations with line/text dimensions; preliminary pricing).
+- **Exports are design previews**, not manufacturing release documents: PDF/DXF contain 2D elevations with dimensions (no cutting layouts, tolerances or joinery details), and pricing is a preliminary estimate.
 
 ## Deployment
 
-Recommended setup — Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railway (PostgreSQL) and a WordPress host — with environment variables, build/start/migration commands, CORS and plugin settings: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
+The frontend is deployed on Vercel: **[varyform-3d-configurator-ar9y.vercel.app](https://varyform-3d-configurator-ar9y.vercel.app/)**. For the full stack, the recommended setup is Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railway (PostgreSQL) and a WordPress host — with environment variables, build/start/migration commands, CORS and plugin settings: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
 
 ## License
 
-Copyright © 2026 Irina Grigoreva. All rights reserved. No open-source license has been granted yet; the source is published for portfolio review.
+Copyright © 2026 Irina Grigoreva. All rights reserved. The source is published for portfolio review only; no open-source license is granted.
