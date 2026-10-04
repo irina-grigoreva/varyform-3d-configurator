@@ -2,7 +2,7 @@
 
 **Parametric 3D Product Configurator** — Configure. Visualize. Manufacture.
 
-![VARYFORM configurator](docs/images/01-configurator.webp)
+![VARYFORM configurator](docs/images/01-configurator.png)
 
 VARYFORM is a parametric 3D product configurator for made-to-order
 manufacturing and e-commerce. A customer sets dimensions and options to the
@@ -50,13 +50,13 @@ plugin designed and built by me.
 
 Bundle size for the main route:
 
-| Bundle (route `/`) | Size (min / gzip) |
-| --- | --- |
-| Initial JS before optimization | 842 kB / 238 kB |
-| Initial JS after optimization | **241 kB / 89 kB** |
-| Three.js viewer | 506 kB / 127 kB — lazy-loaded |
-| DXF export | 90 kB / 22 kB — lazy-loaded |
-| PDF export (jsPDF) | lazy-loaded on demand |
+| Bundle (route `/`)             | Size (min / gzip)             |
+| ------------------------------ | ----------------------------- |
+| Initial JS before optimization | 842 kB / 238 kB               |
+| Initial JS after optimization  | **241 kB / 89 kB**            |
+| Three.js viewer                | 506 kB / 127 kB — lazy-loaded |
+| DXF export                     | 90 kB / 22 kB — lazy-loaded   |
+| PDF export (jsPDF)             | lazy-loaded on demand         |
 
 ## Architecture
 
@@ -79,26 +79,26 @@ Engineering details: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Tech Stack
 
-| Layer | Technology |
-| --- | --- |
-| Frontend | Nuxt 4, Vue 3, TypeScript (strict), Pinia, Three.js, SVG |
-| Exports | jsPDF (PDF), `@tarikjabiri/dxf` (DXF) |
-| API | Fastify 5, Drizzle ORM, PostgreSQL 17 |
-| Commerce | WordPress, WooCommerce, PHP 8 plugin |
-| Tooling | npm workspaces, ESLint, vue-tsc, node:test, Docker Compose |
+| Layer    | Technology                                                 |
+| -------- | ---------------------------------------------------------- |
+| Frontend | Nuxt 4, Vue 3, TypeScript (strict), Pinia, Three.js, SVG   |
+| Exports  | jsPDF (PDF), `@tarikjabiri/dxf` (DXF)                      |
+| API      | Fastify 5, Drizzle ORM, PostgreSQL 17                      |
+| Commerce | WordPress, WooCommerce, PHP 8 plugin                       |
+| Tooling  | npm workspaces, ESLint, vue-tsc, node:test, Docker Compose |
 
 ## Screenshots
 
-Final screenshots will be stored in [`docs/images/`](./docs/images/). Planned images, all using the same demo project — *Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)*:
+Final screenshots will be stored in [`docs/images/`](./docs/images/). Planned images, all using the same demo project — _Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)_:
 
-| File | Shows |
-| --- | --- |
-| `01-configurator.webp` | Main 3D configurator (desktop) |
-| `02-technical-drawing.webp` | Front elevation with dimensions |
-| `03-bom-pricing.webp` | Parts list and estimated total |
-| `04-project-pdf.webp` | PDF project sheet (cover + elevation) |
-| `05-woocommerce-cart.webp` | WooCommerce cart with the verified configuration |
-| `06-order-snapshot.webp` | WooCommerce admin order snapshot with BOM |
+| File                        | Shows                                            |
+| --------------------------- | ------------------------------------------------ |
+| `01-configurator.png`       | Main 3D configurator (desktop)                   |
+| `02-technical-drawing.webp` | Front elevation with dimensions                  |
+| `03-bom-pricing.webp`       | Parts list and estimated total                   |
+| `04-project-pdf.webp`       | PDF project sheet (cover + elevation)            |
+| `05-woocommerce-cart.webp`  | WooCommerce cart with the verified configuration |
+| `06-order-snapshot.webp`    | WooCommerce admin order snapshot with BOM        |
 
 ## Local Development
 
@@ -129,11 +129,11 @@ WooCommerce emails may not be delivered in the local Docker environment unless a
 
 ## Tests
 
-| Suite | Command | Tests |
-| --- | --- | --- |
-| Domain — geometry, BOM, pricing, drawings, DXF/PDF data | `npm run test --workspace @varyform/domain` | 22 |
-| API — routes, validation, edit tokens, legacy IDs, errors, limits, CORS | `npm run test --workspace @varyform/api` | 15 |
-| WordPress/WooCommerce — bridge, nonce, cart, checkout, order views | `npm run test:wordpress` | 39 |
+| Suite                                                                   | Command                                     | Tests |
+| ----------------------------------------------------------------------- | ------------------------------------------- | ----- |
+| Domain — geometry, BOM, pricing, drawings, DXF/PDF data                 | `npm run test --workspace @varyform/domain` | 22    |
+| API — routes, validation, edit tokens, legacy IDs, errors, limits, CORS | `npm run test --workspace @varyform/api`    | 15    |
+| WordPress/WooCommerce — bridge, nonce, cart, checkout, order views      | `npm run test:wordpress`                    | 39    |
 
 ```sh
 npm run typecheck && npm run lint && npm run test && npm run test:wordpress && npm run build
@@ -161,4 +161,3 @@ Recommended setup — Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railw
 ## License
 
 Copyright © 2026 Irina Grigoreva. All rights reserved. No open-source license has been granted yet; the source is published for portfolio review.
-
