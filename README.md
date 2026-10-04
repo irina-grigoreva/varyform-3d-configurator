@@ -91,16 +91,27 @@ Engineering details: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Screenshots
 
-Screenshots live in [`docs/images/`](./docs/images/) (PNG), all using the same demo project — _Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)_:
+All screenshots use the same demo project — _Living Room Shelving, 1400 × 1900 × 400 mm, Walnut, 25 mm boards, 3 sections, 4 shelves, back panel, metal legs (€3,323)_.
 
-| File                        | Shows                                            |
-| --------------------------- | ------------------------------------------------ |
-| `01-configurator.png`       | Main 3D configurator (desktop)                   |
-| `02-technical-drawing.png`  | Front elevation with dimensions                  |
-| `03-bom-pricing.png`        | Parts list and estimated total                   |
-| `04-project-pdf.png`        | PDF project sheet (cover + elevation)            |
-| `05-woocommerce-cart.png`   | WooCommerce cart with the verified configuration |
-| `06-order-snapshot.png`     | WooCommerce admin order snapshot with BOM        |
+**Technical drawing** — front elevation generated from the same parts as the 3D model, with section, shelf-gap and overall dimensions.
+
+![Technical drawing: front elevation with dimensions](docs/images/02-technical-drawing.png)
+
+**Bill of materials and pricing** — grouped parts with cut sizes and materials next to the estimated total.
+
+![Parts list and estimated total](docs/images/03-bom-pricing.png)
+
+**PDF project sheet** — cover page with specification, 3D render and price, followed by vector elevations.
+
+![PDF project sheet: cover and front elevation](docs/images/04-project-pdf.png)
+
+**WooCommerce cart** — the configuration arrives as a cart line with its ID, dimensions, options and the server-verified price.
+
+![WooCommerce cart with the verified configuration](docs/images/05-woocommerce-cart.png)
+
+**Order snapshot** — the admin order keeps an immutable copy of the configuration, BOM and price.
+
+![WooCommerce admin order with the VARYFORM project block and BOM](docs/images/06-order-snapshot.png)
 
 ## Local Development
 
@@ -157,7 +168,7 @@ See [SECURITY.md](./SECURITY.md) — server-side pricing, hashed edit tokens, sa
 
 ## Deployment
 
-The frontend is deployed on Vercel: **[varyform-3d-configurator-ar9y.vercel.app](https://varyform-3d-configurator-ar9y.vercel.app/)**. For the full stack, the recommended setup is Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railway (PostgreSQL) and a WordPress host — with environment variables, build/start/migration commands, CORS and plugin settings: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
+The frontend is deployed on Vercel — **[Live demo](https://varyform-3d-configurator-ar9y.vercel.app/)**. For the full stack, the recommended setup is Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railway (PostgreSQL) and a WordPress host — with environment variables, build/start/migration commands, CORS and plugin settings: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
 
 ## License
 
