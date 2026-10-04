@@ -1,33 +1,30 @@
 # VARYFORM
 
-### Parametric 3D Product Configurator
+**Parametric 3D Product Configurator** — Configure. Visualize. Manufacture.
 
-**Configure. Visualize. Manufacture.**
+![VARYFORM configurator](docs/images/01-configurator.webp)
 
-VARYFORM is a parametric 3D product configurator for manufacturing and e-commerce. Customers configure a made-to-order product down to the millimetre and see it update instantly as procedural Three.js geometry. The same configuration produces CAD-like technical drawings, a bill of materials, a live price, a PDF project sheet and a millimetre-accurate DXF file. Configurations are saved and shared through a Fastify/PostgreSQL backend and can be ordered through WooCommerce, where pricing is verified on the server and every order keeps an immutable snapshot of what was bought.
+VARYFORM is a parametric 3D product configurator for made-to-order
+manufacturing and e-commerce. A customer sets dimensions and options to the
+millimetre and sees the product rebuilt instantly as procedural Three.js
+geometry. The same configuration produces technical drawings, a bill of
+materials, a live price, a PDF project sheet and a millimetre-accurate DXF
+file, and can be ordered through WooCommerce.
 
-The included reference product is a modular shelving system (dimensions, sections, shelves, board thickness, material, back panel, legs).
+The reference product is a modular shelving system: dimensions, sections,
+shelves, board thickness, material, back panel and legs.
 
-What makes it technically interesting: **one framework-independent TypeScript domain model** generates the 3D geometry, drawings, BOM, pricing and both exports, and the same code runs in the browser and in the API — so every view is consistent by construction and commerce pricing cannot be tampered with from the client.
+**What makes it technically interesting:** one framework-independent
+TypeScript domain model generates the 3D geometry, drawings, BOM, pricing and
+both exports. The same code runs in the browser and in the API, so every view
+is consistent by construction and the price cannot be tampered with from the
+client.
 
-**Stack:** Nuxt 4 · Vue 3 · TypeScript · Three.js · Fastify · PostgreSQL · Drizzle · WordPress · WooCommerce · PDF · DXF
+**Stack:** Nuxt 4 · Vue 3 · TypeScript · Three.js · Fastify · PostgreSQL ·
+Drizzle · WordPress · WooCommerce
 
-![Tests](https://img.shields.io/badge/tests-76%20passing-2e7d32) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6) ![Node](https://img.shields.io/badge/node-22.22%2B%20%7C%2024.15%2B-5fa04e)
-
-## Demo
-
-> Live demo: _coming soon_ — see [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
-
-<!-- Preview: add docs/images/01-configurator.webp once final screenshots are captured. -->
-_Preview image will be added with the final production screenshots (see [Screenshots](#screenshots))._
-
-## Overview
-
-VARYFORM connects three worlds that are usually separate tools:
-
-1. **Interactive configuration** — a Nuxt/Vue application with a procedural Three.js model, validated controls and instant pricing.
-2. **Manufacturing output** — CAD-like SVG elevations, a grouped BOM, a PDF project sheet and a DXF file in real millimetres with CAD layers.
-3. **Commerce** — saved projects in Fastify/PostgreSQL, and a custom WordPress plugin that adds them to WooCommerce with server-authoritative pricing, fail-closed checkout re-verification and immutable order snapshots shown in WooCommerce admin and the customer's My Account.
+**Role:** solo project — architecture, frontend, API and the WooCommerce
+plugin designed and built by me.
 
 ## Features
 
