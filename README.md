@@ -44,7 +44,7 @@ plugin designed and built by me.
 - **Single source of truth.** One `Configuration` object in Pinia drives every view; switching 3D/Drawing never mutates state and preserves the 3D camera.
 - **Server-authoritative commerce pricing.** WooCommerce receives only a project ID, fetches price/BOM from the API, ignores tampered browser fields and re-verifies every project before classic checkout (fail-closed, one clear message per configuration).
 - **Immutable order snapshots.** Configuration, dimensions, BOM and price are copied to the order line; later edits to a shared project never change historical orders.
-- **Production DXF in millimetres.** Real-size geometry independent of screen scaling, validated with an independent DXF parser (ezdxf audit: 0 errors) for small, medium and maximum configurations.
+- **Millimetre-accurate DXF.** Real-size geometry independent of screen scaling, validated with an independent DXF parser (ezdxf audit: 0 errors) for small, medium and maximum configurations.
 - **Performance-aware loading.** Three.js, PDF and DXF code load on demand; one WebGL context is reused across mode switches and temporary snapshot contexts are released.
 - **Tested end to end.** 76 automated tests plus real-browser E2E of the full WooCommerce flow.
 
