@@ -48,6 +48,8 @@ plugin designed and built by me.
 - **Performance-aware loading.** Three.js, PDF and DXF code load on demand; one WebGL context is reused across mode switches and temporary snapshot contexts are released.
 - **Tested end to end.** 76 automated tests plus real-browser E2E of the full WooCommerce flow.
 
+Bundle size for the main route:
+
 | Bundle (route `/`) | Size (min / gzip) |
 | --- | --- |
 | Initial JS before optimization | 842 kB / 238 kB |
@@ -127,8 +129,6 @@ WooCommerce emails may not be delivered in the local Docker environment unless a
 
 ## Tests
 
-**76 tests passing.**
-
 | Suite | Command | Tests |
 | --- | --- | --- |
 | Domain — geometry, BOM, pricing, drawings, DXF/PDF data | `npm run test --workspace @varyform/domain` | 22 |
@@ -149,7 +149,7 @@ See [SECURITY.md](./SECURITY.md) — server-side pricing, hashed edit tokens, sa
 
 - **WooCommerce Checkout Blocks** are not supported; checkout re-verification targets classic checkout (a Store API adapter would be needed).
 - **No user accounts** in the configurator — editing uses a browser-held edit token without rotation/revocation.
-- **Same-site hosting** is required for Nuxt and WordPress so the cart session cookie works cross-origin.
+- **Same-site hosting** — Nuxt and WordPress must be hosted on the same site (same registrable domain) so the cart session cookie is sent.
 - **Local email delivery** requires an SMTP server or mail catcher.
 - **Dependency advisories** remain in build/dev tooling (`node-forge` via Nuxt CLI, `braces`, `esbuild`) with no non-breaking fix; none is reachable from the running application.
 - **Exports are previews**, not manufacturing release documents (2D elevations with line/text dimensions; preliminary pricing).
@@ -160,7 +160,5 @@ Recommended setup — Vercel (Nuxt), Render/Railway/Fly.io (Fastify), Neon/Railw
 
 ## License
 
-Copyright © 2026. All rights reserved. No open-source license has been granted yet; the source is published for portfolio review.
-
-Repository: `varyform-3d-configurator`.
+Copyright © 2026 Irina Grigoreva. All rights reserved. No open-source license has been granted yet; the source is published for portfolio review.
 
